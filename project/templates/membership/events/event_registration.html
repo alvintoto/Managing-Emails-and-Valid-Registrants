@@ -1,0 +1,38 @@
+{% extends "membership/layout.html" %}
+{% import "membership/render_helper.html" as forms %}
+
+{% block content %}
+<br>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="clearfix main">
+    <div class="container">
+        <div class="content">
+            <h2> {{ event.name }} Registration </h2>
+        </div>
+        <form action="{{ url_for('events.event_register', event_name=event.name.replace(' ', '-'), token=token) }}" method=post>
+          {{ form.hidden_tag() }}
+
+            <div class="input-row">
+                {{ forms.render(form) }}
+            </div>
+
+            <div class="submit-container">
+                {{ form.submit }}
+            </div>
+            <br>
+        </form>
+    </div>
+</div>
+
+<script>
+  const submitBtn = document.getElementById("submit");
+  submitBtn.addEventListener("click", function() {
+    submitBtn.style.pointerEvents = "none";
+
+    setTimeout(function() {
+      submitBtn.style.pointerEvents = "auto";
+    }, 3000);
+  });
+</script>
+
+{% endblock %}
